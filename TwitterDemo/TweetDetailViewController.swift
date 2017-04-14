@@ -32,8 +32,7 @@ class TweetDetailViewController: UIViewController {
     }
 
     @IBAction func onReplySend(_ sender: Any) {
-        let authorName:String = "@\(tweet!.screen_name!)"
-        let message = "Reply to \(authorName):\(textField.text!)"
+        let message = textField.text!
         let reply_id = tweet?.id?.description
         TwitterClient.sharedInstance?.tweet(message: message, reply_id: reply_id, success: {(response: Any) -> () in
             self.navigationController?.popViewController(animated: true)
@@ -45,8 +44,10 @@ class TweetDetailViewController: UIViewController {
     }
     
     @IBAction func onReply(_ sender: Any) {
+        let authorName:String = "@\(tweet!.screen_name!)"
         replyView.isHidden = false
         textField.becomeFirstResponder()
+        textField.text = "Reply to \(authorName):"
     }
     
     @IBAction func onCancelReply(_ sender: Any) {
